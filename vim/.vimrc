@@ -42,7 +42,7 @@ call vundle#begin()
     Plugin 'fisadev/FixedTaskList.vim'          " Pending tasks list
     Plugin 'rosenfeld/conque-term'              " Consoles as buffers
     Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
-    Plugin 'flazz/vim-colorschemes'             " Colorschemes
+    "    Plugin 'flazz/vim-colorschemes'             " Colorschemes
     Plugin 'kaicataldo/material.vim'            " Material theme
     Plugin 'airblade/vim-gitgutter'             " Git Gutter
 
@@ -72,6 +72,11 @@ call vundle#begin()
     Plugin 'roxma/vim-hug-neovim-rpc'
     Plugin 'rbgrouleff/bclose.vim'
     Plugin 'jiangmiao/auto-pairs'
+    
+    "-------------------=== Ruby  ===-----------------------------
+    Plugin 'tpope/vim-rails'
+    Plugin 'ecomba/vim-ruby-refactoring'
+
 
 
 call vundle#end()                           " required
@@ -136,6 +141,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+"" Code Folding settings
+"=====================================================
+set foldmethod=manual 
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
 "" Search settings
 "=====================================================
 set incsearch	                            " incremental search
@@ -160,6 +172,9 @@ let g:tagbar_autofocus=0
 let g:tagbar_width=42
 autocmd BufEnter *.py :call tagbar#autoopen(0)
 autocmd BufWinLeave *.py :TagbarClose
+autocmd BufEnter *.go :call tagbar#autoopen(0)
+autocmd BufWinLeave *.go :TagbarClose
+
 
 "=====================================================
 "" NERDTree settings
@@ -297,3 +312,4 @@ let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:deoplete#enable_at_startup = 0 
+let g:go_fmt_command = "goimports"
