@@ -42,7 +42,7 @@ call vundle#begin()
     Plugin 'fisadev/FixedTaskList.vim'          " Pending tasks list
     Plugin 'rosenfeld/conque-term'              " Consoles as buffers
     Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
-    "    Plugin 'flazz/vim-colorschemes'             " Colorschemes
+    Plugin 'flazz/vim-colorschemes'             " Colorschemes
     Plugin 'kaicataldo/material.vim'            " Material theme
     Plugin 'airblade/vim-gitgutter'             " Git Gutter
 
@@ -89,10 +89,12 @@ filetype plugin indent on
 "=====================================================
 syntax enable                               " syntax highlight
 
-set t_Co=256                                " set 256 colors
-set background=dark
-colorscheme material 
-let g:material_theme_style = 'dark'
+" set t_Co=256                                " set 256 colors
+" set background=dark
+" colorscheme material 
+" let g:material_theme_style = 'dark'
+set termguicolors
+color artesanal
 
 
 set number                                  " show line numbers
