@@ -171,11 +171,12 @@ let g:airline_theme = 'material'
 "" TagBar settings
 "=====================================================
 let g:tagbar_autofocus=0
-let g:tagbar_width=42
-autocmd BufEnter *.py :call tagbar#autoopen(0)
-autocmd BufWinLeave *.py :TagbarClose
-autocmd BufEnter *.go :call tagbar#autoopen(0)
-autocmd BufWinLeave *.go :TagbarClose
+let g:tagbar_width=30
+"autocmd BufEnter *.py :call tagbar#autoopen(0)
+"autocmd BufWinLeave *.py :TagbarClose
+"autocmd BufEnter *.go :call tagbar#autoopen(0)
+"autocmd BufWinLeave *.go :TagbarClose
+nmap m :Tagbar<CR>
 
 
 "=====================================================
