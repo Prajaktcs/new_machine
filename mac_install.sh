@@ -1,13 +1,8 @@
-echo "Installing homebrew"
-
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
 echo "Installing brew list"
 
-for p in (brew_list)
-do
-    brew install "${p}"
-done
+while read p; do
+  brew install $p
+done < brew_list
 
 echo "Installing oh-my-zsh"
 
@@ -15,10 +10,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 echo "Installing brew cask"
 
-for p in (brew_list_cask)
-do
-    brew cask install "${p}"
-done
+while read p; do
+  brew cask install $p
+done < brew_list_cast
 
 echo "Moving default git and install git with brew"
 
