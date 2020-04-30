@@ -9,77 +9,57 @@
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 let $vimhome=fnamemodify(resolve(expand("~/.vimrc")), ':p:h')
-let $vundle=$vimhome."/bundle/Vundle.vim"
-let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
-
-" Terraform settings
-let g:terraform_align=1
-let g:terraform_fold_sections=1
-let g:terraform_remap_spacebar=1
 
 " Be iMproved
 set nocompatible
 
 "=====================================================
-"" Vundle settings
+"" Vim Plug settings
 "=====================================================
 filetype off
-set rtp+=$vundle
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-    Plugin 'VundleVim/Vundle.vim'               " let Vundle manage Vundle, required
 
     "-------------------=== Code/Project navigation ===-------------
-    Plugin 'scrooloose/nerdtree'                " Project and file navigation
-    Plugin 'majutsushi/tagbar'                  " Class/module browser
-    Plugin 'kien/ctrlp.vim'                     " Fast transitions on project files
-    Plugin 'rking/ag.vim'                       " Searching
+    Plug 'scrooloose/nerdtree'                " Project and file navigation
+    Plug 'majutsushi/tagbar'                  " Class/module browser
+    Plug 'christoomey/vim-tmux-navigator'     " Tmux pane navigation with VIM
+    Plug 'tpope/vim-fugitive'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'tpope/vim-surround'
+    Plug 'jceb/vim-orgmode'
 
-    "-------------------=== Other ===-------------------------------
-    Plugin 'bling/vim-airline'                  " Lean & mean status/tabline for vim
-    Plugin 'vim-airline/vim-airline-themes'     " Themes for airline
-    Plugin 'Lokaltog/powerline'                 " Powerline fonts plugin
-    Plugin 'fisadev/FixedTaskList.vim'          " Pending tasks list
-    Plugin 'rosenfeld/conque-term'              " Consoles as buffers
-    Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
-    Plugin 'flazz/vim-colorschemes'             " Colorschemes
-    Plugin 'kaicataldo/material.vim'            " Material theme
-    Plugin 'airblade/vim-gitgutter'             " Git Gutter
+    "-----------------=== Other ===-------------------------------
+    Plug 'bling/vim-airline'                  " Lean & mean status/tabline for vim
+    Plug 'vim-airline/vim-airline-themes'     " Themes for airline
+    Plug 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
+    Plug 'flazz/vim-colorschemes'             " Colorschemes
+    Plug 'airblade/vim-gitgutter'             " Git Gutter
+    "Plug 'aserebryakov/vim-todo-lists'
+    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'nanotech/jellybeans.vim'
+    Plug 'NLKNguyen/papercolor-theme'
 
-    "-------------------=== Snippets support ===--------------------
-    Plugin 'garbas/vim-snipmate'                " Snippets manager
-    Plugin 'MarcWeber/vim-addon-mw-utils'       " dependencies #1
-    Plugin 'tomtom/tlib_vim'                    " dependencies #2
-    Plugin 'honza/vim-snippets'                 " snippets repo
+    "-----------------=== Languages support ===-------------------
+    Plug 'tpope/vim-commentary'               " Comment stuff out
+    Plug 'sheerun/vim-polyglot'               " Syntax Highlighting for many languages
+    Plug 'Yggdroot/indentLine'
+    Plug 'dense-analysis/ale'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'vim-syntastic/syntastic'            " Seems to be required by other Plugins
 
-    "-------------------=== Languages support ===-------------------
-    Plugin 'tpope/vim-commentary'               " Comment stuff out
-    Plugin 'mitsuhiko/vim-sparkup'              " Sparkup(XML/jinja/htlm-django/etc.) support
-    Plugin 'Rykka/riv.vim'                      " ReStructuredText plugin
-    Plugin 'Valloric/YouCompleteMe'             " Autocomplete plugin
-    Plugin 'sheerun/vim-polyglot'               " Syntax Highlighting for many languages
+    "-----------------=== Python  ===-----------------------------
+    "Plug 'davidhalter/jedi-vim'
 
-    "-------------------=== Python  ===-----------------------------
-    Plugin 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
-    Plugin 'scrooloose/syntastic'               " Syntax checking plugin for Vim
-    Plugin 'davidhalter/jedi-vim'               " Autocomplete python
-    Plugin 'integralist/vim-mypy'               " Type checker
-
-    "-------------------=== Golang  ===-----------------------------
-    Plugin 'fatih/vim-go'
-    Plugin 'Shougo/deoplete.nvim'
-    Plugin 'roxma/nvim-yarp'
-    Plugin 'roxma/vim-hug-neovim-rpc'
-    Plugin 'rbgrouleff/bclose.vim'
-    Plugin 'jiangmiao/auto-pairs'
+    "-----------------=== Golang  ===-----------------------------
+    Plug 'fatih/vim-go'
     
-    "-------------------=== Ruby  ===-----------------------------
-    Plugin 'tpope/vim-rails'
-    Plugin 'ecomba/vim-ruby-refactoring'
+    "-----------------=== Terraform  ===----------------------------
+    "Plug 'hashivim/vim-terraform'
+    "Plug 'juliosueiras/vim-terraform-completion'
 
-
-
-call vundle#end()                           " required
+call plug#end()
 filetype on
 filetype plugin on
 filetype plugin indent on
@@ -89,13 +69,9 @@ filetype plugin indent on
 "=====================================================
 syntax enable                               " syntax highlight
 
-" set t_Co=256                                " set 256 colors
-" set background=dark
-" colorscheme material 
-" let g:material_theme_style = 'dark'
-set termguicolors
-color artesanal
-
+set t_Co=256                                " set 256 colors
+"colorscheme wombat256mod                    " set color scheme
+colorscheme PaperColor
 
 set number                                  " show line numbers
 set ruler
@@ -143,6 +119,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+
 "" Code Folding settings
 "=====================================================
 set foldmethod=manual 
@@ -158,14 +135,28 @@ set hlsearch	                            " highlight search results
 "=====================================================
 "" AirLine settings
 "=====================================================
+let g:airline_theme='papercolor'
 let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#formatter='default'
-let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#left_sep = '>'
-let g:airline_left_sep='>'
-let g:airline#extensions#tabline#right_sep = '<'
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme = 'material'
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 "=====================================================
 "" TagBar settings
@@ -174,10 +165,7 @@ let g:tagbar_autofocus=0
 let g:tagbar_width=30
 "autocmd BufEnter *.py :call tagbar#autoopen(0)
 "autocmd BufWinLeave *.py :TagbarClose
-"autocmd BufEnter *.go :call tagbar#autoopen(0)
-"autocmd BufWinLeave *.go :TagbarClose
 nmap m :Tagbar<CR>
-
 
 "=====================================================
 "" NERDTree settings
@@ -201,56 +189,8 @@ let g:riv_disable_folding=1
 "" Python settings
 "=====================================================
 
-" python executables for different plugins
-let g:pymode_python='python3'
-let g:syntastic_python_python_exec='python3'
-
-" rope
-let g:pymode_rope=1
-let g:pymode_rope_completion=1
-let g:pymode_rope_complete_on_dot=1
-let g:pymode_rope_auto_project=1
-let g:pymode_rope_enable_autoimport=1
-let g:pymode_rope_autoimport_generate=1
-let g:pymode_rope_guess_project=1
-
-" documentation
-let g:pymode_doc=1
-let g:pymode_doc_bind='K'
-
-" lints
-let g:pymode_lint=1
-let g:pymode_options_max_line_length=120
-let g:pymode_lint_options_pyflakes = { 'builtins': '_' }
-let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
-let g:pymode_lint_options_pylint = {'max-line-length': g:pymode_options_max_line_length}
-
-" virtualenv
-let g:pymode_virtualenv=1
-
-" breakpoints
-let g:pymode_breakpoint=1
-let g:pymode_breakpoint_key='<leader>b'
-
-" syntax highlight
-let g:pymode_syntax=1
-let g:pymode_syntax_slow_sync=1
-let g:pymode_syntax_all=1
-let g:pymode_syntax_print_as_function=g:pymode_syntax_all
-let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
-let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
-let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
-let g:pymode_syntax_highlight_self=g:pymode_syntax_all
-let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-let g:pymode_syntax_string_formatting=g:pymode_syntax_all
-let g:pymode_syntax_space_errors=g:pymode_syntax_all
-let g:pymode_syntax_string_format=g:pymode_syntax_all
-let g:pymode_syntax_string_templates=g:pymode_syntax_all
-let g:pymode_syntax_doctests=g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
-let g:pymode_syntax_builtin_types=g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
-let g:pymode_syntax_docstrings=g:pymode_syntax_all
+autocmd BufWritePost *.py :Format
+autocmd BufWritePost *.py :SortImports
 
 " highlight 'long' lines (>= 120 symbols) in python files
 augroup vimrc_autocmds
@@ -261,39 +201,10 @@ augroup vimrc_autocmds
     autocmd FileType python,rst,c,cpp set colorcolumn=120
 augroup END
 
-" code folding
-let g:pymode_folding=0
+" Adding command for python based scripts
+command JsonFormat execute '%!python -m json.tool'
 
-" pep8 indents
-let g:pymode_indent=1
-
-" code running
-let g:pymode_run=0
-let g:pymode_run_bind='<F5>'
-
-" syntastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_enable_signs=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_aggregate_errors=1
-let g:syntastic_loc_list_height=5
-let g:syntastic_error_symbol='X'
-let g:syntastic_style_error_symbol='X'
-let g:syntastic_warning_symbol='x'
-let g:syntastic_style_warning_symbol='x'
-let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
-
-" YouCompleteMe
-set completeopt-=preview
-
-let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-
-nmap <leader>g :YcmCompleter GoTo<CR>
-nmap <leader>d :YcmCompleter GoToDefinition<CR>
-
-" Go based settings
+"Go based settings
 let g:go_auto_type_info = 1  " This shows the type for the var automatically
 let g:go_auto_sameids = 0 " To highlight all the variables under the cursor
 let g:go_fmt_autosave = 1
@@ -316,3 +227,191 @@ let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:deoplete#enable_at_startup = 0 
 let g:go_fmt_command = "goimports"
+
+"Terraform settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" (Optional) Enable terraform plan to be include in filter
+"let g:syntastic_terraform_tffilter_plan = 1
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+"let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+"let g:terraform_registry_module_completion = 0
+
+" COC
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for selections ranges.
+" NOTE: Requires 'textDocument/selectionRange' support from the language server.
+" coc-tsserver, coc-python are the examples of servers that support it.
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add :SortImports command
+command! -nargs=0 SortImports :call CocAction('runCommand', 'python.sortImports')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Ale
+let g:ale_fix_on_save = 1
+let g:ale_completion_enabled=0
+
+"=====================================================
+"" Fzf settings
+"=====================================================
+let g:fzf_command_prefix = 'Fzf'
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+nnoremap <C-f> :FzfFiles<CR>
