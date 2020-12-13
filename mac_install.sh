@@ -34,8 +34,6 @@ cat > ~/.config/nvim/init.vim << EOT
 " Starting vim-plug
 set mouse-=a
 call plug#begin()
-	Plug 'Shougo/deoplete.nvim'
-	Plug 'zchee/deoplete-go', { 'do': 'make'}
 call plug#end()
 
 " Other neo complete settings
@@ -47,19 +45,9 @@ set completeopt+=noselect
 " Path to python interpreter for neovim
 let g:python3_host_prog  = 'python3'
 
-" Run deoplete.nvim automatically
-let g:deoplete#enable_at_startup = 1
-
-" Go Related settings
-let g:deoplete#sources#go#gocode_binary = '$GOPATH/bin/gocode'
-let g:deoplete#sources#go#package_dot = 1
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#pointer = 1
-let g:deoplete#sources#go#source_importer = 1
-let g:deoplete#sources#go#builtin_objects = 1
-
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
+
 
 EOT
