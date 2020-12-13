@@ -29,6 +29,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'tpope/vim-surround'
     Plug 'jceb/vim-orgmode'
+    Plug 'chuling/equinusocio-material.vim'
+    Plug 'APZelos/blamer.nvim'
 
     "-----------------=== Other ===-------------------------------
     Plug 'bling/vim-airline'                  " Lean & mean status/tabline for vim
@@ -40,6 +42,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'nanotech/jellybeans.vim'
     Plug 'NLKNguyen/papercolor-theme'
+    Plug 'godlygeek/tabular'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'scrooloose/vim-slumlord'
+    Plug 'aklt/plantuml-syntax'
 
     "-----------------=== Languages support ===-------------------
     Plug 'tpope/vim-commentary'               " Comment stuff out
@@ -48,6 +54,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'dense-analysis/ale'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'vim-syntastic/syntastic'            " Seems to be required by other Plugins
+    Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 
     "-----------------=== Python  ===-----------------------------
     "Plug 'davidhalter/jedi-vim'
@@ -68,10 +75,19 @@ filetype plugin indent on
 "" General settings
 "=====================================================
 syntax enable                               " syntax highlight
+set termguicolors
 
 set t_Co=256                                " set 256 colors
 "colorscheme wombat256mod                    " set color scheme
 colorscheme PaperColor
+set background=dark
+"colorscheme equinusocio_material
+let g:airline_theme='papercolor'
+
+let g:blamer_enabled = 1
+let g:blamer_delay = 500
+let g:blamer_show_in_visual_modes = 0
+let g:vim_markdown_conceal = 0
 
 set number                                  " show line numbers
 set ruler
@@ -104,6 +120,10 @@ set secure                                  " prohibit .vimrc files to execute s
 " Additional mappings for Esc (useful for MacBook with touch bar)
 inoremap jj <Esc>
 inoremap jk <Esc>
+
+" Sending dd to blackhole
+nnoremap d "_d
+nnoremap dd "_dd
 
 "=====================================================
 "" Tabs / Buffers settings
@@ -189,8 +209,9 @@ let g:riv_disable_folding=1
 "" Python settings
 "=====================================================
 
-autocmd BufWritePost *.py :Format
-autocmd BufWritePost *.py :SortImports
+autocmd BufWritePost *.py,*.java :Format
+"autocmd BufWritePost *.py :SortImports
+let g:pydocstring_formatter = 'sphinx'
 
 " highlight 'long' lines (>= 120 symbols) in python files
 augroup vimrc_autocmds
@@ -229,6 +250,7 @@ let g:deoplete#enable_at_startup = 0
 let g:go_fmt_command = "goimports"
 
 "Terraform settings
+autocmd BufWritePost *.tf :TerraformFmt
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -397,6 +419,8 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+vmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
 
 " Ale
 let g:ale_fix_on_save = 1
