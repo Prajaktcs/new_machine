@@ -20,8 +20,6 @@ dep
 dialog
 docutils
 dpkg
-emacs
-ethereum
 fakeroot
 fish
 fontconfig
@@ -128,7 +126,6 @@ python@3.9
 readline
 ruby
 sbt
-solidity
 sqlite
 sshuttle
 stern
